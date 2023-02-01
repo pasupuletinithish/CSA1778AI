@@ -1,0 +1,24 @@
+# Nested List
+nested_list = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+# Length
+print("Length of Nested List:", len(nested_list))
+
+# Concatenation
+list1 = [1, 2, 3]
+list2 = [4, 5, 6]
+list3 = list1 + list2
+print("Concatenated List:", list3)
+
+# Membership
+print("Is 4 in List1:", 4 in list1)
+
+# Iteration
+for item in list1:
+    print("Item:", item)
+
+# Indexing
+print("Item at index 1:", list1[1])
+
+# Slicing
+print("Sliced List:", list1[0:2])

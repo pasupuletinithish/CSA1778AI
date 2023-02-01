@@ -1,0 +1,17 @@
+# Add Element
+list1 = [1, 2, 3]
+list1.append(4)
+print("List after adding element:", list1)
+
+# Extend List
+list2 = [5, 6, 7]
+list1.extend(list2)
+print("List after extending:", list1)
+
+# Delete Element
+del list1[2]
+print("List after deleting element:", list1)
+
+# Remove Element
+list1.remove(1)
+print("List after removing element:", list1)

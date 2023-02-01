@@ -1,0 +1,80 @@
+# Simple Calculator Program with Continue Option
+
+# Function to add two numbers
+def add(num1, num2):
+    return num1 + num2
+
+
+# Function to subtract two numbers
+def subtract(num1, num2):
+    return num1 - num2
+
+
+# Function to multiply two numbers
+def multiply(num1, num2):
+    return num1 * num2
+
+
+# Function to divide two numbers
+def divide(num1, num2):
+    return num1 / num2
+
+
+print("Select the operation to perform:")
+print("1. Addition")
+print("2. Subtraction")
+print("3. Multiplication")
+print("4. Division")
+
+# Take user input for choice of operation
+choice = int(input("Enter your choice (1/2/3/4): "))
+
+# Check if user input is valid
+if choice in [1, 2, 3, 4]:
+    num1 = float(input("Enter first number: "))
+    num2 = float(input("Enter second number: "))
+
+    if choice == 1:
+        print(num1, "+", num2, "=", add(num1, num2))
+
+    elif choice == 2:
+        print(num1, "-", num2, "=", subtract(num1, num2))
+
+    elif choice == 3:
+        print(num1, "*", num2, "=", multiply(num1, num2))
+
+    elif choice == 4:
+        print(num1, "/", num2, "=", divide(num1, num2))
+else:
+    print("Invalid choice. Please enter a valid option (1/2/3/4)")
+
+# Ask user if they want to perform another calculation
+continue_calculator = input("Do you want to perform another calculation? (y/n) ")
+
+# Continue the calculator if user input is "y"
+while continue_calculator.lower() == "y":
+    choice = int(input("Enter your choice (1/2/3/4): "))
+
+    if choice in [1, 2, 3, 4]:
+        num1 = float(input("Enter first number: "))
+        num2 = float(input("Enter second number: "))
+
+        if choice == 1:
+            print(num1, "+", num2, "=", add(num1, num2))
+
+        elif choice == 2:
+            print(num1, "-", num2, "=", subtract(num1, num2))
+
+        elif choice == 3:
+            print(num1, "*", num2, "=", multiply(num1, num2))
+
+        elif choice == 4:
+            print(num1, "/", num2, "=", divide(num1, num2))
+    else:
+        print("Invalid choice. Please enter a valid option (1/2/3/4)")
+
+    continue_calculator = input("Do you want to perform another calculation? (y/n) ")
+
+print("Goodbye!")
+1
+
