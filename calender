@@ -1,0 +1,14 @@
+import calendar
+
+def generate_calendar(year, month):
+    # Create calendar
+    c = calendar.TextCalendar(firstweekday=calendar.SUNDAY)
+
+    # Generate the calendar string
+    calendar_str = c.formatmonth(year, month)
+
+    # Print the calendar
+    print(calendar_str)
+
+# Example usage
+generate_calendar(2023, 2)
