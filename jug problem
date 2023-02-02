@@ -1,0 +1,35 @@
+def pour(from_jug, to_jug):
+    remaining_space = to_jug.capacity - to_jug.amount
+    transfer = min(from_jug.amount, remaining_space)
+    from_jug.amount -= transfer
+    to_jug.amount += transfer
+
+class Jug:
+    def __init__(self, name, capacity, amount=0):
+        self.name = name
+        self.capacity = capacity
+        self.amount = amount
+
+    def __repr__(self):
+        return f"{self.amount}/{self.capacity}"
+
+def main():
+    a = Jug("A", 5)
+    b = Jug("B", 3)
+
+    # initial state
+    print(a)
+    print(b)
+
+    # pour B into A
+    pour(b, a)
+    print(a)
+    print(b)
+
+    # pour A into B
+    pour(a, b)
+    print(a)
+    print(b)
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,44 @@
+from collections import deque
+
+def find_index(lst, elem):
+    for i in range(len(lst)):
+        for j in range(len(lst[i])):
+            if lst[i][j] == elem:
+                return (i, j)
+
+def is_valid(x, y, puzzle_size):
+    return x >= 0 and x < puzzle_size and y >= 0 and y < puzzle_size
+
+def bfs(start, goal, puzzle_size):
+    queue = deque([(start, [])])
+    visited = set()
+
+    while queue:
+        node, path = queue.popleft()
+
+        if node == goal:
+            return path
+
+        zero_x, zero_y = find_index(node, 0)
+        neighbors = [(zero_x - 1, zero_y), (zero_x + 1, zero_y), (zero_x, zero_y - 1), (zero_x, zero_y + 1)]
+
+        for x, y in neighbors:
+            if is_valid(x, y, puzzle_size):
+                new_node = [row[:] for row in node]
+                new_node[zero_x][zero_y], new_node[x][y] = new_node[x][y], new_node[zero_x][zero_y]
+                tuple_node = tuple([tuple(row) for row in new_node])
+
+                if tuple_node not in visited:
+                    visited.add(tuple_node)
+                    queue.append((new_node, path + [new_node]))
+
+    return []
+
+start = [[1, 2, 3], [5, 6, 0], [7, 8, 4]]
+goal = [[1, 2, 3], [5, 8, 6], [0, 7, 4]]
+puzzle_size = 3
+path = bfs(start, goal, puzzle_size)
+print("Moves:", len(path))
+for move in path:
+    print(move)
+
