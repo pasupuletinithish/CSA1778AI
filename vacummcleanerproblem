@@ -1,0 +1,40 @@
+# define the state of the world
+location_a = 'Dirty'
+location_b = 'Dirty'
+
+# define the actions available to the vacuum cleaner
+def move_left():
+    global location_a
+    global location_b
+    location_a, location_b = location_b, location_a
+
+def move_right():
+    global location_a
+    global location_b
+    location_a, location_b = location_b, location_a
+
+def clean():
+    global location_a
+    global location_b
+    if location_a == 'Dirty':
+        location_a = 'Clean'
+    elif location_b == 'Dirty':
+        location_b = 'Clean'
+
+# define the rule-based agent
+def vacuum_cleaner_agent():
+    global location_a
+    global location_b
+    if location_a == 'Dirty':
+        clean()
+    elif location_b == 'Dirty':
+        move_right()
+        clean()
+    else:
+        move_left()
+
+# run the agent for a number of steps
+num_steps = 10
+for i in range(num_steps):
+    print(f'Step {i}: {location_a=} {location_b=}')
+    vacuum_cleaner_agent()

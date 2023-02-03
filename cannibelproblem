@@ -1,0 +1,34 @@
+from collections import deque
+
+def is_valid(state):
+    m, c, b = state
+    if m < 0 or c < 0 or m > 3 or c > 3:
+        return False
+    if m < c and m > 0:
+        return False
+    if 3 - m < 3 - c and 3 - m > 0:
+        return False
+    return True
+
+def bfs(start, end, q):
+    if start == end:
+        return True
+    for (m, c, b) in [(1, 0, 1), (2, 0, 1), (0, 1, 1), (0, 2, 1), (1, 1, 1)]:
+        state = (start[0]-m, start[1]-c, -b)
+        if is_valid(state):
+            if state not in q:
+                q.append(state)
+                if bfs(state, end, q):
+                    return True
+    return False
+
+start = (3, 3, 1)
+end = (0, 0, -1)
+q = deque([start])
+if bfs(start, end, q):
+    print("Solution found!")
+else:
+    print("No solution found.")
+
+
+

@@ -1,0 +1,77 @@
+class CSP:
+    def __init__(self, variables, domains, neighbors, constraints):
+        """
+        Initialize a CSP.
+        variables: a list of variables (strings).
+        domains: a dictionary mapping variables to a list of possible values.
+        neighbors: a dictionary mapping variables to a list of their neighbors.
+        constraints: a function that takes a variable and a value and returns True if the value is valid for the variable.
+        """
+        self.variables = variables
+        self.domains = domains
+        self.neighbors = neighbors
+        self.constraints = constraints
+
+    def backtracking_search(self):
+        """
+        Find a solution to the CSP using the backtracking search algorithm.
+        Returns a dictionary mapping variables to values, or None if no solution was found.
+        """
+        return self._backtrack({})
+
+    def _backtrack(self, assignment):
+        """
+        Recursive function to find a solution to the CSP.
+        assignment: a partially filled-in dictionary mapping variables to values.
+        Returns a dictionary mapping variables to values, or None if no solution was found.
+        """
+        if len(assignment) == len(self.variables):
+            return assignment
+
+        var = self._select_unassigned_variable(assignment)
+        for value in self.domains[var]:
+            if self._consistent(var, value, assignment):
+                assignment[var] = value
+                result = self._backtrack(assignment)
+                if result is not None:
+                    return result
+                del assignment[var]
+
+        return None
+
+    def _select_unassigned_variable(self, assignment):
+        """
+        Select an unassigned variable from the list of variables.
+        assignment: a partially filled-in dictionary mapping variables to values.
+        Returns a variable that is not yet assigned a value.
+        """
+        for var in self.variables:
+            if var not in assignment:
+                return var
+
+    def _consistent(self, var, value, assignment):
+        """
+        Check if a value is consistent with the constraints for a variable.
+        var: a variable.
+        value: a value.
+        assignment: a partially filled-in dictionary mapping variables to values.
+        Returns True if the value is consistent with the constraints, False otherwise.
+        """
+        if not self.constraints(var, value, assignment):
+            return False
+        for neighbor in self.neighbors[var]:
+            if neighbor in assignment and assignment[neighbor] == value:
+                return False
+        return True
+
+# Map Coloring problem
+colors = ['red', 'green', 'blue']
+states = ['WA', 'NT', 'Q', 'NSW', 'V', 'SA', 'T']
+neighbors = {
+    'WA': ['NT', 'Q', 'NSW'],
+    'NT': ['WA', 'Q', 'SA'],
+    'Q': ['WA', 'NT', 'SA', 'NSW'],
+    'NSW': ['WA', 'Q', 'V', 'SA'],
+    'V': ['NSW', 'SA'],
+    'SA': ['NT', 'Q', 'NSW'], 
+    

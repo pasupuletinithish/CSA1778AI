@@ -1,0 +1,44 @@
+import heapq
+
+def astar(graph, start, end):
+    """
+    Find the shortest path between start and end nodes in a graph using the A* algorithm.
+    The graph is represented as a dictionary where the keys are the nodes and the values are lists of (neighbor, cost) tuples.
+    """
+    # Heap to keep track of the nodes to visit next, ordered by their f value (estimated cost to the end node)
+    heap = [(0, start)]
+    # Keep track of the g values (cost from start to node) for each node
+    g_values = {start: 0}
+    # Keep track of the parents for each node, to reconstruct the path later
+    parents = {start: None}
+    # Keep track of the nodes that have already been visited
+    visited = set()
+
+    while heap:
+        # Get the node with the lowest f value
+        (f, node) = heapq.heappop(heap)
+        if node in visited:
+            continue
+        visited.add(node)
+
+        # Check if we've reached the end node
+        if node == end:
+            # Reconstruct the path
+            path = [end]
+            while path[-1] != start:
+                path.append(parents[path[-1]])
+            path.reverse()
+            return path, f
+
+        # Update the g values for the neighbors
+        for (neighbor, cost) in graph[node]:
+            if neighbor in visited:
+                continue
+            g = g_values[node] + cost
+            if neighbor not in g_values or g < g_values[neighbor]:
+                g_values[neighbor] = g
+                f = g + (end[0] - neighbor[0]) ** 2 + (end[1] - neighbor[1]) ** 2  # heuristic: Euclidean distance
+                heapq.heappush(heap, (f, neighbor))
+                parents[neighbor] = node
+
+    return None, None

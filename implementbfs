@@ -1,0 +1,31 @@
+from collections import deque
+
+def bfs(graph, start_node):
+    """
+    Perform breadth-first search on a graph, starting from the start_node.
+    The graph is represented as a dictionary where the keys are the nodes and the values are lists of neighbors.
+    """
+    # Create a queue for BFS
+    queue = deque([start_node])
+
+    # Mark the source node as visited and store it in the result list
+    result = [start_node]
+    visited = {start_node}
+
+    # Loop until the queue is empty
+    while queue:
+        # Dequeue a vertex from the queue
+        current_node = queue.popleft()
+
+        # Get all neighbors of the current node
+        neighbors = graph[current_node]
+
+        # Iterate over all neighbors
+        for neighbor in neighbors:
+            # If the neighbor has not been visited, mark it as visited and enqueue it
+            if neighbor not in visited:
+                queue.append(neighbor)
+                visited.add(neighbor)
+                result.append(neighbor)
+
+    return result
